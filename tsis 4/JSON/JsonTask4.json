@@ -1,0 +1,29 @@
+import json
+
+with open('C:/Users/ADMIN/OneDrive/Рабочий стол/lab4/firstjson/sample-data.json', 'r') as f:
+
+    response = f.read()
+data = json.loads(response)
+
+print("""Interface Status
+================================================================================
+DN                                                 Description           Speed    MTU  
+-------------------------------------------------- --------------------  ------  ------""")
+
+for i in range(len(data["imdata"])):
+    dn = data['imdata'][i]['l1PhysIf']['attributes']['dn']
+    descr = data['imdata'][i]['l1PhysIf']['attributes']['descr']
+    speed = data['imdata'][i]['l1PhysIf']['attributes']['speed']
+    mtu = data['imdata'][i]['l1PhysIf']['attributes']['mtu']
+    print("{:50}{:22}{:9}".format(dn, descr, speed), mtu)
+
+print(data['imdata'][0]['l1PhysIf']['attributes']['dn'])
+for i in data['imdata'][0]['l1PhysIf']['attributes']:
+    print(data['imdata'][0]['l1PhysIf']['attributes'][i])
+
+for i in data['imdata']:
+    admin_st = i["l1PhysIf"]["attributes"]["adminSt"]
+    print(admin_st)
+
+print(json.dumps(data, indent=4))
+print(json.dumps(data, indent=4, separators=("; ", " == ")))
